@@ -15,6 +15,7 @@ import { MainModule } from './main/main.module';
     AppRoutingModule,
     CoreModule,
     MainModule
+    // import Http client module
   ],
   providers: [],
   bootstrap: [AppComponent]
