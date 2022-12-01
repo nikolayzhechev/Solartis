@@ -3,17 +3,20 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { RouterModule } from '@angular/router';
+import { ShopComponent } from './shop/shop.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     AboutComponent,
-    DashboardComponent
+    DashboardComponent,
+    ShopComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [
     HomeComponent,
