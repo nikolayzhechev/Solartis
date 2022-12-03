@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "solartis",
+    "public": "Solartis-app",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

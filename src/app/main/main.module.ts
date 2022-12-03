@@ -20,7 +20,9 @@ import { ShopComponent } from './shop/shop.component';
   ],
   exports: [
     HomeComponent,
-    AboutComponent
+    AboutComponent,
+    DashboardComponent,
+    ShopComponent
   ]
 })
 export class MainModule { }

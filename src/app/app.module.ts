@@ -8,6 +8,13 @@ import { CoreModule } from './core/core.module';
 import { MainModule } from './main/main.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore";
+// import { environment } from 'src/environments/environment';
+// import { AngularFireModule } from '@angular/fire/compat';
+// import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
+// { AngularFireDatabaseModule } from '@angular/fire/compat/database;
+
 @NgModule({
   declarations: [
     AppComponent
@@ -19,6 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MainModule,
     AuthModule,
     BrowserAnimationsModule
+    // AngularFireModule.initializeApp(environment.firebase),
+    // AngularFirestoreModule
     // import Http client module
   ],
   providers: [],
