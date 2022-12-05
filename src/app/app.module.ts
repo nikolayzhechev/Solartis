@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { MainModule } from './main/main.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 // import { initializeApp } from "firebase/app";
 // import { getFirestore } from "firebase/firestore";
@@ -25,7 +27,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CoreModule,
     MainModule,
     AuthModule,
-    BrowserAnimationsModule
+    DashboardModule,
+    BrowserAnimationsModule,
+    FormsModule
     // AngularFireModule.initializeApp(environment.firebase),
     // AngularFirestoreModule
     // import Http client module
