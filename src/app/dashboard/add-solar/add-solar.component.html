@@ -1,2 +1,31 @@
-<p>add-solar works!</p>
-<!-- add form to add content -->
+<section>
+    <div class="solar-title-container">
+        <h2>Add any solar panel</h2>
+        <p>Add a solar panel that has been connected to your house smart network to start monitoring.</p>
+    </div>
+
+    <div class="solar-form-container">
+        <form #solarForm="ngForm">
+            <!-- set addSolarPanel on form level- (ngSubmit)="addSolarPanel()" -->
+            <label for="title">Solar Panel</label>
+            <input required type="text" name="title" [(ngModel)]="title">
+
+            <label for="description">Short description</label>
+            <textarea type="text" name="description" rows="2" [(ngModel)]="description" ></textarea>
+
+            <label for="consumption">Consumption capacity</label>
+            <input type="text" name="consumption" [(ngModel)]="consumption">
+
+            <label for="connect-battery">Connect a battery</label>
+            <select id="battery" name="battery">
+                <!-- Add dynamic data from batteries -->
+                <option value=""></option>
+            </select>
+
+            <label>Add data for device</label>
+            <input type="file">
+
+            <button class="solar-btn" type="submit" (click)="addSolarPanel()">Add to Dashboard</button>
+        </form>
+    </div>
+</section>

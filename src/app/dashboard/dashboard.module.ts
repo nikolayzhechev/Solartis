@@ -7,6 +7,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AddTechComponent } from './add-tech/add-tech.component';
 import { AddBatteryComponent } from './add-battery/add-battery.component';
 import { FormsModule } from '@angular/forms';
+import { SolarComponent } from './item-details/solar/solar.component';
 
 
 
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     AddSolarComponent,
     DashboardComponent,
     AddTechComponent,
-    AddBatteryComponent
+    AddBatteryComponent,
+    SolarComponent
   ],
   imports: [
     CommonModule,

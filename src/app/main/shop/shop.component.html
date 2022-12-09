@@ -1,16 +1,17 @@
 <div class="shop-container">
     <div class="shop__title">
         <h2>Renewable energy and smart home solutions</h2>
-        <p>Overview of our product which can get every home started. Get a consultation today.</p>
+        <p>Overview of our products which can get every home started.</p>
         <button>Get started</button>
         <img src="" alt="">
     </div>
 
     <div class="shop__contents">
-        <div class="contents__item">
-            <h3>Item title</h3>
-            <p>Item description</p>
-            <img src="" alt="">
+        <div class="contents__item" *ngFor="let shopItem of shopItems">
+            <h3><a routerLink="">{{shopItem.title}}</a></h3>
+            <p>{{shopItem.desc}}</p>
+            <span>{{shopItem.price}}</span>
+            <img src="{{shopItem.image}}" alt="">
         </div>
     </div>
 </div>

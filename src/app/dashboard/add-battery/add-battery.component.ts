@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-add-battery',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-battery.component.css']
 })
 export class AddBatteryComponent {
+  title = '';
+  energy = 0;
 
+  async addBattery() {
+    await firebase.firestore().collection('batteries').add({
+      title: this.title,
+      energy: this.energy
+    });
+  }
 }
