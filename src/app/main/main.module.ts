@@ -5,6 +5,7 @@ import { AboutComponent } from './about/about.component';
 //import { DashboardComponent } from './main-dashboard/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { ShopComponent } from './shop/shop.component';
+import { ShopItemComponent } from './shop/shop-item/shop-item.component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ShopComponent } from './shop/shop.component';
     HomeComponent,
     AboutComponent,
     //DashboardComponent,
-    ShopComponent
+    ShopComponent,
+    ShopItemComponent
   ],
   imports: [
     CommonModule,

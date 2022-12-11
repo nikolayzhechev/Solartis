@@ -8,7 +8,7 @@
 
     <div class="shop__contents">
         <div class="contents__item" *ngFor="let shopItem of shopItems">
-            <h3><a routerLink="">{{shopItem.title}}</a></h3>
+            <h3><a [routerLink]="['./item', shopItem.id]">{{shopItem.title}}</a></h3>
             <p>{{shopItem.desc}}</p>
             <span>{{shopItem.price}}</span>
             <img src="{{shopItem.image}}" alt="">

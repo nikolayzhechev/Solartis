@@ -1,23 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import firebase from 'firebase/app';
 import 'firebase/firestore'; 
 
 @Component({
-  selector: 'app-solar',
-  templateUrl: './solar.component.html',
-  styleUrls: ['./solar.component.css']
+  selector: 'app-tech',
+  templateUrl: './tech.component.html',
+  styleUrls: ['./tech.component.css']
 })
-export class SolarComponent implements OnInit {
-  id: string | null = '';
-  solarItem: any;
-  updateView: boolean = false;
+export class TechComponent implements OnInit{
+  techItem: any;
+  id: string = '';
   title: string = '';
-  description: string = '';
   consumption: string = '';
+  limit: string = '';
+  updateView: boolean = false;
 
-  constructor( private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -27,16 +26,16 @@ export class SolarComponent implements OnInit {
     });
   }
 
-  async getItem(id: any) {
-      const items = await firebase.firestore().collection('solar-panels')
-        .where(firebase.firestore.FieldPath.documentId(), '==', id)
-          .get();
+  async getItem(id: string) {
+    const items = await firebase.firestore().collection('tech')
+      .where(firebase.firestore.FieldPath.documentId(), '==', id)
+        .get();
 
-      items.forEach((doc) => {
-          this.solarItem = doc.data();
-      });
+    items.forEach((doc) => {
+        this.techItem = doc.data();
+    });
 
-      return items;
+    return items;
   }
 
   async setDefaultValues(id: any) {
@@ -49,10 +48,10 @@ export class SolarComponent implements OnInit {
 
     this.title = defaultItem.title;
     this.consumption = defaultItem.consumption;
-    this.description = defaultItem.description;
+    this.limit = defaultItem.limit;
   }
 
-  async deleteItem(id: any) {
+  async deleteItem(id: string) {
     const items = await this.getItem(id);
 
       items.forEach((doc) => {
@@ -64,13 +63,13 @@ export class SolarComponent implements OnInit {
     this.updateView = true;
   }
 
-  async updateItem(id: any) {
+  async updateItem(id: string) {
     const items = await this.getItem(id);
 
     items.forEach((doc) => {
       doc.ref.update({
         title: this.title,
-        description: this.description,
+        limit: this.limit,
         consumption: this.consumption,
       })
     });

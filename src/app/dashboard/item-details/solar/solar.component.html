@@ -1,17 +1,37 @@
-<div>
-    <h1></h1>
-    <p></p>
+<div *ngIf="updateView == false" class="item-container">
+    <h1>{{solarItem.title}}</h1>
+    <p>{{solarItem.description}}</p>
     <img src="" alt="">
 
-    <h3>Details:</h3>
-    <p>Consumption:</p>
-    <p>Batteries connected:</p>
+    <h3>Details: </h3>
+    <p>Consumption: {{solarItem.consumption}}</p>
+    <p>Batteries connected: </p>
     <ul>
         <li></li>
     </ul>
 
     <h3>Data:</h3>
 
-    <button>Edit</button>
-    <button>Delete</button>
+    <button (click)="editItem()" class="item-edit">Edit</button>
+    <button (click)="deleteItem(solarItem.id)" class="item-delete">Delete</button>
+</div>
+
+<div class="solar-form-container" *ngIf="updateView == true">
+    <h3>Update current item</h3>
+    <form #solarForm="ngForm">
+        <!-- set addSolarPanel on form level- (ngSubmit)="addSolarPanel()" -->
+        <label for="title">Solar Panel</label>
+        <input required type="text" name="title" [(ngModel)]="title">
+
+        <label for="description">Short description</label>
+        <textarea type="text" name="description" rows="2" [(ngModel)]="description" ></textarea>
+
+        <label for="consumption">Consumption capacity</label>
+        <input type="text" name="consumption" [(ngModel)]="consumption">
+
+        <label>Add data for device</label>
+        <input type="file">
+
+        <button class="solar-btn" type="submit" (click)="updateItem(solarItem.id)">Update</button>
+    </form>
 </div>

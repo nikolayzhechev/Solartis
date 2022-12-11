@@ -1,0 +1,20 @@
+<div class="item-container" *ngIf="updateView == false">
+    <h1>{{batteryItem.title}}</h1>
+    <h3>{{batteryItem.energy}}</h3>
+    <img src="" alt="">
+
+    <button class="item-edit" (click)="editItem()">Edit</button>
+    <button class="item-delete" (click)="deleteItem(batteryItem.id)">Delete</button>
+</div>
+
+<div class="battery-form-container" *ngIf="updateView == true">
+    <form #batteryForm="ngForm">
+        <label for="title">Battery type</label>
+        <input required type="text" name="title" [(ngModel)]="title">
+
+        <label for="energy">Energy</label>
+        <input type="text" name="energy" [(ngModel)]="energy">
+
+        <button class="battery-btn" (click)="updateItem(batteryItem.id)">Update</button>
+    </form>
+</div>

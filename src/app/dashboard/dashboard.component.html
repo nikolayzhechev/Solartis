@@ -1,6 +1,7 @@
 <div class="dash-title">
     <h1>My Home</h1>
     <p>Status:</p>
+    <p>Total consumption:</p>
 </div>
 
 <div>
@@ -10,12 +11,12 @@
     <ul>
         <li *ngFor="let solarPanel of solarPanels" class="dash__solar-item">
             <h3 class="solar-item__title">Solar Panel: {{solarPanel.title}}</h3>
+            <img src="" alt="image">
             <p>{{solarPanel.description}}</p>
             <span>Consumption: {{solarPanel.consumption}}</span>
             <button><a [routerLink]="['./solar-details', solarPanel.id]">Details</a></button>
         </li>
     </ul>
-    <img src="" alt="image">
 </div>
 
 <div>
@@ -25,24 +26,24 @@
     <ul>
         <li *ngFor="let appliance of appliances" class="dash__tech-item">
             <h3 class="tech-item__title">Appliance: {{appliance.title}}</h3>
+            <img src="" alt="image">
             <p>Consumption: {{appliance.consumption}}</p>
             <span>Set limit for this item: {{appliance.limit}}</span>
-            <button><a [routerLink]="['./item-details', appliance.id]">Details</a></button>
+            <button><a [routerLink]="['./tech-details', appliance.id]">Details</a></button>
         </li>
     </ul>
-    <img src="" alt="image">
 </div>
 
 <div>
     <h2>Battery</h2>
     <h3>Current battery state and usage</h3>
-    <button><a routerLink="./addBattery">Details</a></button>
+    <button><a routerLink="./addBattery">Set up</a></button>
     <ul>
         <li *ngFor="let battery of batteries" class="dash__battery-item">
             <h3 class="battery-item__title">Battery: {{battery.title}}</h3>
+            <img src="" alt="image">
             <p>Energy: {{battery.energy}}</p>
-            <button><a routerLink="">Details</a></button>
+            <button><a [routerLink]="['./battery-details', battery.id]">Details</a></button>
         </li>
     </ul>
-    <img src="" alt="image">
 </div>

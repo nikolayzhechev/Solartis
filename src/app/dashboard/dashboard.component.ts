@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IItem } from '../shared/Interfaces/item';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import firebase from 'firebase/app';
 import 'firebase/firestore'; 
 
@@ -13,12 +16,14 @@ export class DashboardComponent implements OnInit{
   appliances: any[] = [];
   batteries: any[] = [];
   //IItem[] | null = null;
+  selectedId: string | null = '';
+
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.getSolarPanels();
     this.getTech();
     this.getBatteries();
-    console.log(this.solarPanels)
   }
 
   async getSolarPanels() {

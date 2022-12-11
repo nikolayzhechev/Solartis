@@ -13,10 +13,13 @@ export class AddTechComponent {
   limit = 0;
 
   async addTech() {
-    await firebase.firestore().collection('tech').add({
+    const docRef = await firebase.firestore().collection('tech').add({
       title: this.title,
       consumption: this.consumption,
       limit: this.limit
+    });
+    docRef.update({
+      id: docRef.id
     });
   }
 }

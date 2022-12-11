@@ -8,6 +8,8 @@ import { AddTechComponent } from './add-tech/add-tech.component';
 import { AddBatteryComponent } from './add-battery/add-battery.component';
 import { FormsModule } from '@angular/forms';
 import { SolarComponent } from './item-details/solar/solar.component';
+import { TechComponent } from './item-details/tech/tech.component';
+import { BatteryComponent } from './item-details/battery/battery.component';
 
 
 
@@ -17,7 +19,9 @@ import { SolarComponent } from './item-details/solar/solar.component';
     DashboardComponent,
     AddTechComponent,
     AddBatteryComponent,
-    SolarComponent
+    SolarComponent,
+    TechComponent,
+    BatteryComponent
   ],
   imports: [
     CommonModule,

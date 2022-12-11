@@ -1,23 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
 import firebase from 'firebase/app';
 import 'firebase/firestore'; 
 
 @Component({
-  selector: 'app-solar',
-  templateUrl: './solar.component.html',
-  styleUrls: ['./solar.component.css']
+  selector: 'app-battery',
+  templateUrl: './battery.component.html',
+  styleUrls: ['./battery.component.css']
 })
-export class SolarComponent implements OnInit {
+export class BatteryComponent implements OnInit{
+  batteryItem: any;
   id: string | null = '';
-  solarItem: any;
-  updateView: boolean = false;
   title: string = '';
-  description: string = '';
-  consumption: string = '';
+  energy: string = '';
+  updateView: boolean = false;
 
-  constructor( private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -27,19 +25,19 @@ export class SolarComponent implements OnInit {
     });
   }
 
-  async getItem(id: any) {
-      const items = await firebase.firestore().collection('solar-panels')
-        .where(firebase.firestore.FieldPath.documentId(), '==', id)
-          .get();
+  async getItem(id: string) {
+    const items = await firebase.firestore().collection('batteries')
+      .where(firebase.firestore.FieldPath.documentId(), '==', id)
+        .get();
 
-      items.forEach((doc) => {
-          this.solarItem = doc.data();
-      });
+    items.forEach((doc) => {
+        this.batteryItem = doc.data();
+    });
 
-      return items;
+    return items;
   }
 
-  async setDefaultValues(id: any) {
+  async setDefaultValues(id: string) {
     const items = await this.getItem(id);
     let defaultItem: any;
 
@@ -48,8 +46,7 @@ export class SolarComponent implements OnInit {
     });
 
     this.title = defaultItem.title;
-    this.consumption = defaultItem.consumption;
-    this.description = defaultItem.description;
+    this.energy = defaultItem.energy;
   }
 
   async deleteItem(id: any) {
@@ -70,8 +67,7 @@ export class SolarComponent implements OnInit {
     items.forEach((doc) => {
       doc.ref.update({
         title: this.title,
-        description: this.description,
-        consumption: this.consumption,
+        energy: this.energy,
       })
     });
   }

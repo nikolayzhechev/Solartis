@@ -20,6 +20,6 @@ export class AddSolarComponent {
     });
     docRef.update({
       id: docRef.id
-    })
+    });
   }
 }

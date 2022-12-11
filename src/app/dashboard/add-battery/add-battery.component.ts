@@ -12,9 +12,12 @@ export class AddBatteryComponent {
   energy = 0;
 
   async addBattery() {
-    await firebase.firestore().collection('batteries').add({
+    const docRef = await firebase.firestore().collection('batteries').add({
       title: this.title,
       energy: this.energy
+    });
+    docRef.update({
+      id: docRef.id
     });
   }
 }
