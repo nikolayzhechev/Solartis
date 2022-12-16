@@ -1,23 +1,30 @@
-import { Component } from '@angular/core';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../dashboard.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-battery',
   templateUrl: './add-battery.component.html',
   styleUrls: ['./add-battery.component.css']
 })
-export class AddBatteryComponent {
-  title = '';
-  energy = 0;
+export class AddBatteryComponent implements OnInit {
+  title: string = '';
+  energy: string = '';
+  id: string = '';
+  constructor(
+    private dashboardService: DashboardService,
+    private router: Router
+    ) { }
 
-  async addBattery() {
-    const docRef = await firebase.firestore().collection('batteries').add({
+  ngOnInit(): void {
+  }
+
+  submit() {
+    this.dashboardService.createBattery({
       title: this.title,
-      energy: this.energy
+      energy: this.energy,
+      id: this.id
     });
-    docRef.update({
-      id: docRef.id
-    });
+    this.router.navigate(['dashboard']);
   }
 }

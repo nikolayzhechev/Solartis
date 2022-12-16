@@ -1,56 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { IItem } from '../shared/Interfaces/item';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import firebase from 'firebase/app';
-import 'firebase/firestore'; 
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { Solar } from '../shared/Interfaces/solar';
+import { Tech } from '../shared/Interfaces/tech';
+import { Battery } from '../shared/Interfaces/battery';
+import { DashboardService } from './dashboard.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit{
-  solarPanels: any[] = [];
-  appliances: any[] = [];
-  batteries: any[] = [];
-  //IItem[] | null = null;
-  selectedId: string | null = '';
+export class DashboardComponent implements OnInit {
+  solarItems$: Observable<Solar[]>; // udpated to observable + using interface
+  techItems$: Observable<Tech[]>;
+  batteryItems$: Observable<Battery[]>;
+  @Output() solarItemEmitter = new EventEmitter<Solar>(); // use output emitter?
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    public dashboardService: DashboardService, 
+    public authService: AuthService
+    ) { }
 
-  ngOnInit() {
-    this.getSolarPanels();
-    this.getTech();
+  ngOnInit(): void {
+    this.getSolarItems();
+    this.getTechItems();
     this.getBatteries();
   }
 
-  async getSolarPanels() {
-    const snapshot = await
-      firebase.firestore().collection('solar-panels').get();
-
-
-    snapshot.forEach(doc => {
-        this.solarPanels?.push(doc.data());
-    });
+  getSolarItems(): void {
+    const items = this.dashboardService.getAll();
+    this.solarItems$ = items;
   }
 
-  async getTech() {
-    const snapshot = await
-      firebase.firestore().collection('tech').get();
-
-    snapshot.forEach(doc => {
-      this.appliances?.push(doc.data());
-    });
+  getTechItems(): void {
+    const items = this.dashboardService.getAllTech();
+    this.techItems$ = items;
   }
 
-  async getBatteries() {
-    const snapshot = await
-      firebase.firestore().collection('batteries').get();
-
-      snapshot.forEach(doc => {
-        this.batteries?.push(doc.data());
-      });
+  getBatteries(): void {
+    const items = this.dashboardService.getAllBatteries();
+    this.batteryItems$ = items;
   }
+
+  selectSolarItem(solarItem: Solar) {
+    this.solarItemEmitter.emit(solarItem); // < needed?
+  }
+
 }

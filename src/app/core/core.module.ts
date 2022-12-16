@@ -4,8 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 
-import { MatToolbarModule } from '@angular/material/toolbar'; // test toolbar
-import { MatIconModule } from '@angular/material/icon'; // test toolbar
+
 
 @NgModule({
   declarations: [
@@ -14,9 +13,7 @@ import { MatIconModule } from '@angular/material/icon'; // test toolbar
   ],
   imports: [
     CommonModule,
-    RouterModule,
-    MatToolbarModule, // test toolbar
-    MatIconModule // test toolbar
+    RouterModule
   ],
   exports: [
     HeaderComponent,

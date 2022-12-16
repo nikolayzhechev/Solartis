@@ -1,0 +1,23 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px;
+}
+.card-container mat-card {
+    align-items: center;
+    display: flex;
+    flex: 1 0 20%;
+    flex-direction: column;
+    margin: 5px;
+    max-width: 200px;
+}
+.card-container > :hover {
+    box-shadow: 0 0 11px #cccccc;
+    cursor: pointer; ;
+}
+.card-container mat-card-content {
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

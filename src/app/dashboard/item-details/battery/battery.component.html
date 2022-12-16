@@ -1,20 +1,30 @@
-<div class="item-container" *ngIf="updateView == false">
-    <h1>{{batteryItem.title}}</h1>
-    <h3>{{batteryItem.energy}}</h3>
-    <img src="" alt="">
+<div class="detail">
+    <h2>{{ batteryItem.title }}</h2>
+    <p>{{ batteryItem.energy }}</p>
 
-    <button class="item-edit" (click)="editItem()">Edit</button>
-    <button class="item-delete" (click)="deleteItem(batteryItem.id)">Delete</button>
+    <div *ngIf="updateView == false">
+        <button (click)="editItem()" mat-raised-button color="primary">Update</button>
+        <button (click)="delete(batteryItem.id)" mat-raised-button color="primary">Delete</button>
+    </div>
 </div>
 
-<div class="battery-form-container" *ngIf="updateView == true">
-    <form #batteryForm="ngForm">
-        <label for="title">Battery type</label>
+<div class="solar-form-container" *ngIf="updateView == true">
+    <form #solarForm="ngForm">
+        <label for="title">Battery</label>
         <input required type="text" name="title" [(ngModel)]="title">
 
-        <label for="energy">Energy</label>
-        <input type="text" name="energy" [(ngModel)]="energy">
+        <label for="description">Energy</label>
+        <input type="text" name="description" rows="2" [(ngModel)]="energy" >
 
-        <button class="battery-btn" (click)="updateItem(batteryItem.id)">Update</button>
+        <label for="connect-battery">Connect a battery</label>
+        <select id="battery" name="battery">
+            <!-- Add dynamic data from batteries -->
+            <option value=""></option>
+        </select>
+
+        <label>Add data for device</label>
+        <input type="file">
+
+        <button mat-raised-button color="primary" class="solar-btn" type="submit" (click)="update()">Update Item</button>
     </form>
 </div>

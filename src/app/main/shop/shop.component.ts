@@ -1,25 +1,24 @@
-import { Component, OnInit} from '@angular/core';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Item } from 'src/app/shared/Interfaces/item';
+import { ShopService } from './shop.service';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.css']
 })
-export class ShopComponent implements OnInit{
-  shopItems: any[] = [];
+export class ShopComponent implements OnInit {
+  @Input() shopItem$: Observable<Item[]>;
+  @Output() shopItemEmitter = new EventEmitter<Item>();
 
-  ngOnInit() {
-    this.getShopItems()
+  constructor(private shopService: ShopService) { }
+
+  ngOnInit(): void {
+    this.shopItem$ = this.shopService.getAll()
   }
 
-  async getShopItems() {
-    const snapshot =  await
-      firebase.firestore().collection('shop').get();
-
-      snapshot.forEach(doc => {
-        this.shopItems?.push(doc.data());
-      });
+  selectItem(shopItem: Item) {
+    this.shopItemEmitter.emit(shopItem);
   }
 }

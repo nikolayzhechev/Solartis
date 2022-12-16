@@ -1,35 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import firebase from 'firebase/app';
-import 'firebase/firestore'; 
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ActivatedRoute, ActivationEnd, Params } from '@angular/router';
+import { Item } from 'src/app/shared/Interfaces/item';
+import { Firestore, getFirestore } from '@angular/fire/firestore';
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { ShopService } from '.././shop.service';
 
 @Component({
   selector: 'app-shop-item',
   templateUrl: './shop-item.component.html',
   styleUrls: ['./shop-item.component.css']
 })
-export class ShopItemComponent implements OnInit{
+export class ShopItemComponent implements OnInit {
   shopItem: any;
-  title: string = '';
-  desc: string = '';
-  price: number = 0;
+  id: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private shopService: ShopService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const id = params['id'];
-      this.getItem(id);
+      this.id = params['id'];
     });
+    this.getItem()
   }
-
-  async getItem(id: string) {
-    const items = await firebase.firestore().collection('shop')
-    .where(firebase.firestore.FieldPath.documentId(), '==', id)
-      .get();
-
-    items.forEach((doc) => {
-        this.shopItem = doc.data();
+  
+  getItem() {
+    this.shopService.get(this.id).subscribe(item => {
+      this.shopItem = item;
     });
   }
 }

@@ -1,23 +1,20 @@
-<section>
-    <div class="battery-title-container">
-        <h2>Add a battery</h2>
-        <p>Add batteries to store solar energy and be used with inverters.</p>
-    </div>
+<div class="solar-form-container">
+    <form #solarForm="ngForm">
+        <label for="title">Battery</label>
+        <input required type="text" name="title" [(ngModel)]="title">
 
-    <div class="battery-form-container">
-        <form #batteryForm="ngForm">
-            <label for="title">Battery type</label>
-            <input required type="text" name="title" [(ngModel)]="title">
+        <label for="description">Energy - capacity</label>
+        <input type="text" name="description" rows="2" [(ngModel)]="energy" >
 
-            <label for="energy">Energy</label>
-            <input type="text" name="energy" [(ngModel)]="energy">
+        <label for="connect-battery">Connect</label>
+        <select id="battery" name="battery">
+            <!-- Add dynamic -->
+            <option value=""></option>
+        </select>
 
-            <button class="battery-btn" (click)="addBattery()">Add Battery to System</button>
-        </form>
-    </div>
-    
-    <div>
-        <p>An energy-storage system, also called a home or solar battery, lets you capture electricity so you can use it at another time. For example, you can store the electricity your solar panels generate during the day and use it at night.</p>
-        <p>Home-energy storage will also reduce the electricity you use from the grid, and cut your energy bills. If your home is off-grid, it can help to reduce your use of fossil fuel back-up generators.</p>
-    </div>
-</section>
+        <label>Add data for device</label>
+        <input type="file">
+
+        <button mat-raised-button color="primary" class="battery-btn" type="submit" (click)="submit()">Add to Dashboard</button>
+    </form>
+</div>

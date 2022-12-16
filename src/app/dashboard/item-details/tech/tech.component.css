@@ -1,0 +1,24 @@
+
+.detail {
+    border-radius: 15px;
+    box-shadow: 0 0 11px #cacaca;    
+    padding: 30px;
+}
+button {
+    margin-right: 10px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+.content {
+    display: flex;
+
+}
+
+form {
+    margin: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 11px #cacaca;    
+    padding: 30px;
+}

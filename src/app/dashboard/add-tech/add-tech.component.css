@@ -1,0 +1,16 @@
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, label, textarea, select {
+    margin: 8px;
+    width: 32%;
+    margin: 0 auto;
+}
+
+.tech-btn {
+    width: 10%;
+    margin: 0 auto;
+    margin-top: 12px;
+}

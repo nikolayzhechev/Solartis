@@ -1,28 +1,32 @@
-<div *ngIf="updateView == false">
-    <h1>{{techItem.title}}</h1>
-    <p>{{techItem.description}}</p>
-    <img src="" alt="">
+<div class="detail">
+    <h2>{{ techItem.title }}</h2>
+    <p>{{ techItem.consumption }}</p>
+    <p>{{ techItem.limit }}</p>
 
-    <h3>Details: </h3>
-        <ul>
-            <li>Consumption: {{techItem.consumption}}</li>
-            <li>Limit: {{techItem.limit}}</li>
-        </ul>
-    <button class="item-edit" (click)="editItem()">Edit</button>
-    <button class="item-delete" (click)="deleteItem(techItem.id)">Delete</button>
+    <div *ngIf="updateView == false">
+        <button (click)="editItem()" mat-raised-button color="primary">Update</button>
+        <button (click)="delete(techItem.id)" mat-raised-button color="primary">Delete</button>
+    </div>
 </div>
 
-<div class="tech-form-container" *ngIf="updateView == true">
-    <form #techForm="ngForm">
+<div class="solar-form-container" *ngIf="updateView == true">
+    <form #solarForm="ngForm">
+        <!-- set addSolarPanel on form level- (ngSubmit)="addSolarPanel()" -->
         <label for="title">Applience</label>
         <input required type="text" name="title" [(ngModel)]="title">
-        
+
         <label for="consumption">Consumption</label>
         <input type="text" name="consumption" [(ngModel)]="consumption">
 
-        <label for="limit">Specify limit</label>
-        <input type="text" name="limit" [(ngModel)]="limit">
+        <label for="description">Set limit</label>
+        <input type="text" name="description" rows="2" [(ngModel)]="limit" >
 
-        <button class="tech-btn" type="submit" (click)="updateItem(techItem.id)">Update</button>
+        <label for="connect-battery">Connect a battery</label>
+        <select id="battery" name="battery">
+            <!-- Add dynamic data from batteries -->
+            <option value=""></option>
+        </select>
+
+        <button mat-raised-button color="primary" class="solar-btn" type="submit" (click)="update()">Update Item</button>
     </form>
 </div>

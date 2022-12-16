@@ -1,77 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import firebase from 'firebase/app';
-import 'firebase/firestore'; 
+import { Tech } from 'src/app/shared/Interfaces/tech';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-tech',
   templateUrl: './tech.component.html',
   styleUrls: ['./tech.component.css']
 })
-export class TechComponent implements OnInit{
-  techItem: any;
-  id: string = '';
-  title: string = '';
-  consumption: string = '';
-  limit: string = '';
+export class TechComponent implements OnInit {
+  techItem: Tech;
+  title = '';
+  consumption = 0;
+  limit = 0;
+  id = '' ;
   updateView: boolean = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    public dashboardService: DashboardService,
+    private route: ActivatedRoute
+    ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const id = params['id'];
-      this.getItem(id);
-      this.setDefaultValues(id);
+      this.id = params['id'];
     });
+    this.getItem();
   }
 
-  async getItem(id: string) {
-    const items = await firebase.firestore().collection('tech')
-      .where(firebase.firestore.FieldPath.documentId(), '==', id)
-        .get();
-
-    items.forEach((doc) => {
-        this.techItem = doc.data();
+  getItem() {
+    this.dashboardService.getTechItem(this.id).subscribe((doc: any) => {
+      this.techItem = doc;
     });
-
-    return items;
-  }
-
-  async setDefaultValues(id: any) {
-    const items = await this.getItem(id);
-    let defaultItem: any;
-
-    items.forEach((doc) => {
-      defaultItem = doc.data();
-    });
-
-    this.title = defaultItem.title;
-    this.consumption = defaultItem.consumption;
-    this.limit = defaultItem.limit;
-  }
-
-  async deleteItem(id: string) {
-    const items = await this.getItem(id);
-
-      items.forEach((doc) => {
-        doc.ref.delete();
-      });
   }
 
   editItem() {
     this.updateView = true;
   }
 
-  async updateItem(id: string) {
-    const items = await this.getItem(id);
-
-    items.forEach((doc) => {
-      doc.ref.update({
-        title: this.title,
-        limit: this.limit,
-        consumption: this.consumption,
-      })
+  update() {
+    this.dashboardService.updateTech({
+      title: this.title,
+      consumption: this.consumption,
+      limit: this.limit,
+      id: this.id
     });
+  }
+
+  delete(id: string) {
+    this.dashboardService.deleteTech(id);
   }
 }

@@ -5,13 +5,15 @@
         <button>Get started</button>
         <img src="" alt="">
     </div>
-
     <div class="shop__contents">
-        <div class="contents__item" *ngFor="let shopItem of shopItems">
-            <h3><a [routerLink]="['./item', shopItem.id]">{{shopItem.title}}</a></h3>
-            <p>{{shopItem.desc}}</p>
-            <span>{{shopItem.price}}</span>
-            <img src="{{shopItem.image}}" alt="">
-        </div>
+            <mat-card class="contents__item"
+                    *ngFor="let shopItem of shopItem$ | async"
+                    [routerLink]="['./item', shopItem.id]"
+                    >
+                <h3>{{ shopItem.title }}"</h3>
+                <p>{{ shopItem.desc }}</p>
+                <span>{{ shopItem.price }}</span>
+                <img src="{{ shopItem.image }}" alt="image">
+            </mat-card>
     </div>
 </div>

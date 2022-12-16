@@ -1,4 +1,13 @@
 {
+  "targets": {
+    "solartis-41f8c": {
+      "hosting": {
+        "Solartis": [
+          "solartis"
+        ]
+      }
+    }
+  },
   "projects": {
     "default": "solartis-41f8c"
   }

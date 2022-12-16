@@ -1,5 +1,6 @@
 <div class="dash-title">
     <h1>My Home</h1>
+    <h3 *ngIf="authService.userData as user">Hello {{ user.displayName }}!</h3>
     <p>Status:</p>
     <p>Total consumption:</p>
 </div>
@@ -8,22 +9,50 @@
     <h2>Solar</h2>
     <h3>Solar panels connected</h3>
     <button><a routerLink="./addSolar">Add New</a></button>
-    <ul>
-        <li *ngFor="let solarPanel of solarPanels" class="dash__solar-item">
-            <h3 class="solar-item__title">Solar Panel: {{solarPanel.title}}</h3>
+    <div class="card-container">
+        <mat-card *ngFor="let solarItem of solarItems$ | async"
+            (click)="selectSolarItem(solarItem)"
+            [routerLink]="['./solar-details', solarItem.id]"
+        >
+            <mat-card-title>{{ solarItem.title }}</mat-card-title>
+            <mat-card-subtitle>{{ solarItem.description }}</mat-card-subtitle>
+            <mat-card-content>
+                <p>
+                    Consumption: {{ solarItem.consumption }}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- <ul>
+        <li *ngFor="let solarItem of solarItems | async" class="dash__solar-item">
+            <h3 class="solar-item__title">Solar Panel: {{solarItem.title}}</h3>
             <img src="" alt="image">
-            <p>{{solarPanel.description}}</p>
-            <span>Consumption: {{solarPanel.consumption}}</span>
-            <button><a [routerLink]="['./solar-details', solarPanel.id]">Details</a></button>
+            <p>{{solarItem.description}}</p>
+            <span>Consumption: {{solarItem.consumption}}</span>
+            <button><a [routerLink]="['./solar-details', solarItem.id]">Details</a></button>
         </li>
-    </ul>
+    </ul> -->
 </div>
 
 <div>
     <h2>Efficiency</h2>
     <h3>Appliances connected</h3>
     <button><a routerLink="./addTech">Connect</a></button>
-    <ul>
+    <div class="card-container">
+        <mat-card *ngFor="let techItem of techItems$ | async"
+            [routerLink]="['./tech-details', techItem.id]">
+            <mat-card-title>{{ techItem.title }}</mat-card-title>
+            <mat-card-subtitle>
+                <span>Limit:</span> {{ techItem.limit }}
+            </mat-card-subtitle>
+            <mat-card-content>
+                <p>
+                    Consumption: {{ techItem.consumption }}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- <ul>
         <li *ngFor="let appliance of appliances" class="dash__tech-item">
             <h3 class="tech-item__title">Appliance: {{appliance.title}}</h3>
             <img src="" alt="image">
@@ -31,19 +60,30 @@
             <span>Set limit for this item: {{appliance.limit}}</span>
             <button><a [routerLink]="['./tech-details', appliance.id]">Details</a></button>
         </li>
-    </ul>
+    </ul> -->
 </div>
 
 <div>
     <h2>Battery</h2>
     <h3>Current battery state and usage</h3>
     <button><a routerLink="./addBattery">Set up</a></button>
-    <ul>
+    <div class="card-container">
+        <mat-card *ngFor="let battery of batteryItems$ | async"
+            [routerLink]="['./battery-details', battery.id]">
+            <mat-card-title>{{ battery.title }}</mat-card-title>
+            <mat-card-content>
+                <p>
+                    Energy: {{ battery.energy }}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <!-- <ul>
         <li *ngFor="let battery of batteries" class="dash__battery-item">
             <h3 class="battery-item__title">Battery: {{battery.title}}</h3>
             <img src="" alt="image">
             <p>Energy: {{battery.energy}}</p>
             <button><a [routerLink]="['./battery-details', battery.id]">Details</a></button>
         </li>
-    </ul>
+    </ul> -->
 </div>

@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap, Params } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
-import firebase from 'firebase/app';
-import 'firebase/firestore'; 
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Solar } from 'src/app/shared/Interfaces/solar';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-solar',
@@ -10,69 +9,51 @@ import 'firebase/firestore';
   styleUrls: ['./solar.component.css']
 })
 export class SolarComponent implements OnInit {
-  id: string | null = '';
-  solarItem: any;
-  updateView: boolean = false;
-  title: string = '';
-  description: string = '';
+  solarItem: Solar;
+  id: string;
+  // form: FormGroup;
   consumption: string = '';
+  description: string = '';
+  title: string = '';
+  updateView: boolean = false;
 
-  constructor( private route: ActivatedRoute) {}
+  @Output() updateSolar = new EventEmitter<void>();
+  @Output() deleteSolar = new EventEmitter<void>();
 
-  ngOnInit() {
+  constructor(
+    private dashboardService: DashboardService,
+    private route: ActivatedRoute
+    ) { }
+
+  ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      const id = params['id'];
-      this.getItem(id);
-      this.setDefaultValues(id);
+      this.id = params['id'];
     });
+    this.getItem();
   }
 
-  async getItem(id: any) {
-      const items = await firebase.firestore().collection('solar-panels')
-        .where(firebase.firestore.FieldPath.documentId(), '==', id)
-          .get();
-
-      items.forEach((doc) => {
-          this.solarItem = doc.data();
-      });
-
-      return items;
-  }
-
-  async setDefaultValues(id: any) {
-    const items = await this.getItem(id);
-    let defaultItem: any;
-
-    items.forEach((doc) => {
-      defaultItem = doc.data();
+  getItem() {
+    this.dashboardService.get(this.id).subscribe((doc: any) => {
+      this.solarItem = doc;
     });
-
-    this.title = defaultItem.title;
-    this.consumption = defaultItem.consumption;
-    this.description = defaultItem.description;
-  }
-
-  async deleteItem(id: any) {
-    const items = await this.getItem(id);
-
-      items.forEach((doc) => {
-        doc.ref.delete();
-      });
   }
 
   editItem() {
     this.updateView = true;
   }
 
-  async updateItem(id: any) {
-    const items = await this.getItem(id);
-
-    items.forEach((doc) => {
-      doc.ref.update({
-        title: this.title,
-        description: this.description,
-        consumption: this.consumption,
-      })
+  update() {
+    this.dashboardService.update({
+      title: this.title,
+      description: this.description,
+      consumption: this.consumption,
+      id: this.id
     });
+    //this.updateSolar.emit();
+  }
+
+  delete(id: string) {
+    this.dashboardService.delete(id);
+    //this.deleteSolar.emit();
   }
 }
